@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package healthjournal;
+
+service HealthJournalGRPCService {
+    rpc testGRPC (HealthJournalGRPCServiceTestRequest) returns (HealthJournalGRPCServiceTestResponse) {}
+}
+
+message HealthJournalGRPCServiceTestRequest {
+    string data = 1;
+}
+
+message HealthJournalGRPCServiceTestResponse {
+    bool isWorking = 1;
+}

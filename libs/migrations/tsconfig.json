@@ -1,0 +1,35 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "@swiq/common": ["../common/src/index.ts"],
+      "@swiq/common/enums": ["../common/src/lib/enums/index.ts"],
+      "@swiq/common/interfaces": ["../common/src/lib/interfaces/index.ts"],
+      "@swiq/common/utils": ["../common/src/lib/utils/index.ts"],
+      "@swiq/common/repositories": ["../common/src/lib/repositories/index.ts"],
+      "@swiq/common/entities": ["../common/src/lib/entities/index.ts"],
+      "@swiq/common/graphql": ["../common/src/lib/graphql/index.ts"],
+      "@swiq/common/errors": ["../common/src/lib/errors/index.ts"],
+      "@swiq/common/constants": ["../common/src/lib/constants/index.ts"]
+    }
+  },
+  "files": [],
+  "include": [],
+  "references": [
+    {
+      "path": "./tsconfig.lib.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
+}

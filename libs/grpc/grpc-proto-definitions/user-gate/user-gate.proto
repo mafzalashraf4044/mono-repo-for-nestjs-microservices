@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package usergate;
+
+service UserGateGRPCService {
+    rpc testGRPC (UserGateGRPCServiceTestRequest) returns (UserGateGRPCServiceTestResponse) {}
+}
+
+message UserGateGRPCServiceTestRequest {
+    string data = 1;
+}
+
+message UserGateGRPCServiceTestResponse {
+    bool isWorking = 1;
+}

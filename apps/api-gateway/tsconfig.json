@@ -1,0 +1,48 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "files": [],
+  "include": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ],
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "@common/*": ["src/app/common/*"],
+      "@config/*": ["src/app/config/*"],
+      "@grpc-svc/*": ["src/app/grpc/*"],
+      "@swiq/common": ["../../libs/common/src/index.ts"],
+      "@swiq/common/enums": ["../../libs/common/src/lib/enums/index.ts"],
+      "@swiq/common/interfaces": [
+        "../../libs/common/src/lib/interfaces/index.ts"
+      ],
+      "@swiq/common/utils": ["../../libs/common/src/lib/utils/index.ts"],
+      "@swiq/common/repositories": [
+        "../../libs/common/src/lib/databases/pgsql/repositories/index.ts"
+      ],
+      "@swiq/common/entities": [
+        "../../libs/common/src/lib/databases/pgsql/entities/index.ts"
+      ],
+      "@swiq/common/graphql": ["../../libs/common/src/lib/graphql/index.ts"],
+      "@swiq/common/errors": ["../../libs/common/src/lib/errors/index.ts"],
+      "@swiq/common/constants": [
+        "../../libs/common/src/lib/constants/index.ts"
+      ],
+      "@swiq/common/transformers": [
+        "../../libs/common/src/lib/databases/pgsql/transformers/index.ts"
+      ],
+      "@proto/user-gate": [
+        "../../libs/grpc/grpc-proto-definitions/user-gate/user-gate.ts"
+      ],
+      "@proto/health-journal": [
+        "../../libs/grpc/grpc-proto-definitions/health-journal/health-journal.ts"
+      ]
+    }
+  }
+}

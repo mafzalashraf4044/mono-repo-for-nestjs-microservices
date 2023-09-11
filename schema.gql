@@ -1,0 +1,205 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""user"""
+type User {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  email: String!
+  username: String
+  country: String!
+  status: String!
+  photo: String
+  refreshToken: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type MemberDetails {
+  gender: UserGender!
+  dob: DateTime!
+  weight: Float!
+  height: Float!
+  fitnessLevel: String!
+  dietPlan: String!
+}
+
+enum UserGender {
+  Male
+  Female
+  NonBinary
+}
+
+type MemberAppToken {
+  android: String!
+  ios: String!
+}
+
+type MemberNotificationsApp {
+  sensorScanReminder: Boolean!
+  mealScoreReady: Boolean!
+}
+
+type MemberNotifications {
+  app: MemberNotificationsApp!
+  email: Boolean!
+}
+
+type MemberPreferencesUnits {
+  height: String!
+  weight: String!
+  glucose: String!
+}
+
+type MemberPreferences {
+  notifications: MemberNotifications!
+  units: MemberPreferencesUnits!
+  targetZone: String!
+  shareUsageStats: Boolean!
+}
+
+type MemberMembership {
+  subscriptionId: String!
+  type: MembershipType!
+}
+
+enum MembershipType {
+  AppOnly
+  WithSensor
+}
+
+"""member"""
+type MemberModel {
+  id: ID!
+  userId: Int!
+  details: MemberDetails!
+  goal: MemberGoal!
+  devices: [MemberDeviceType!]!
+  appToken: MemberAppToken!
+  preferences: MemberPreferences!
+  membership: MemberMembership!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+enum MemberGoal {
+  Longevity
+  WeightLoss
+  LifestyleTracking
+  Education
+}
+
+enum MemberDeviceType {
+  GarminWatch
+  AppleWatch
+  WhoopStrap
+  OuraRing
+}
+
+type MemberWithUser {
+  id: ID!
+  userId: Int!
+  details: MemberDetails!
+  goal: MemberGoal!
+  devices: [MemberDeviceType!]!
+  appToken: MemberAppToken!
+  preferences: MemberPreferences!
+  membership: MemberMembership!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  user: User!
+}
+
+type MemberLoginResponse {
+  member: MemberWithUser!
+  jwtToken: String!
+  refreshToken: String!
+}
+
+type AdminDetails {
+  gender: UserGender!
+  dob: DateTime!
+}
+
+type AdminPreferencesNotifications {
+  email: Boolean!
+  sms: Boolean!
+}
+
+type AdminPreferences {
+  notifications: AdminPreferencesNotifications!
+}
+
+"""admin"""
+type Admin {
+  id: ID!
+  userId: Int!
+  details: AdminDetails!
+  preferences: AdminPreferences!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Query {
+  user(id: Float!): User!
+  userByEmail(email: String!): User!
+  users(skip: Int! = 0, take: Int! = 25): [User!]!
+  member(id: Float!): MemberModel!
+  admin(id: Float!): Admin!
+}
+
+type Mutation {
+  uploadImage(image: Upload!, createFileInDirectory: Boolean!): Boolean!
+  addUser(user: SignupRequest!): User!
+  testGrpcConnectivityWithServices(serviceName: ServiceNameDTO!): Boolean!
+  signupMember(signupRequest: SignupRequest!): MemberModel!
+  resetMemberPassword(resetPasswordWithCodeRequest: ResetPasswordWithCodeRequest!): String!
+  forgotMemberPassword(forgotPasswordRequest: ForgotPasswordRequest!): Boolean!
+  loginMember(loginRequest: LoginRequest!): MemberLoginResponse!
+  refreshMemberAccessToken(refreshToken: String!): String!
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
+input SignupRequest {
+  firstName: String!
+  lastName: String!
+  email: String!
+  username: String!
+  password: String!
+  country: String!
+  phone: String!
+}
+
+input ServiceNameDTO {
+  serviceName: MicroServices!
+}
+
+enum MicroServices {
+  UserGate
+  HealthJournal
+}
+
+input ResetPasswordWithCodeRequest {
+  email: String!
+  code: String!
+  password: String!
+  confirmPassword: String!
+}
+
+input ForgotPasswordRequest {
+  email: String!
+}
+
+input LoginRequest {
+  email: String!
+  password: String!
+}

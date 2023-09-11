@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc",
+    "module": "commonjs",
+    "types": ["jest", "node"]
+  },
+  "include": [
+    "jest.config.ts",
+    "pgsql/**/*.test.ts",
+    "pgsql/**/*.spec.ts",
+    "pgsql/**/*.d.ts"
+  ]
+}

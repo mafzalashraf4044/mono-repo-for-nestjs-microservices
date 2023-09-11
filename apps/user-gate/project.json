@@ -1,0 +1,90 @@
+{
+  "name": "user-gate",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/user-gate/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/user-gate",
+        "main": "apps/user-gate/src/main.ts",
+        "tsConfig": "apps/user-gate/tsconfig.app.json",
+        "assets": [
+          "apps/user-gate/src/assets",
+          {
+            "input": "libs/grpc/grpc-proto-definitions",
+            "glob": "*/*.proto",
+            "output": "assets/proto"
+          }
+        ],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/user-gate/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "user-gate:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "user-gate:build:development"
+        },
+        "production": {
+          "buildTarget": "user-gate:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/user-gate/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/user-gate/jest.config.ts",
+        "passWithNoTests": true,
+        "coverageDirectory": "/coverage/apps/user-gate"
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "typeorm-generate-migrations": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/user-gate",
+        "commands": [
+          "ts-node --project ./tsconfig.json -r tsconfig-paths/register ../../libs/migrations/pgsql/db.migration.ts generate ./ user-gate"
+        ]
+      }
+    },
+    "typeorm-run-migrations": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/user-gate",
+        "commands": [
+          "ts-node --project ./tsconfig.json -r tsconfig-paths/register ../../libs/migrations/pgsql/db.migration.ts run ./ user-gate"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
